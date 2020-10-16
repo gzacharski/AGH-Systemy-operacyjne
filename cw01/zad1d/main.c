@@ -12,18 +12,28 @@
 #define NUMBER 100000
 #define SIZE 4
 
-void task();
+void task(int);
 double getDuration(struct timespec *, struct timespec *);
 void printNumbers(int *);
 int isPerfectNumber(int);
 
-int main(){
+int main(int argc, char *argv[]){
+
+    int numberOfIteration=0;
+
+    if(argc==2){
+        printf("Supplied argument is %s.\n", argv[1]);
+        numberOfIteration=atoi(argv[1]);
+    }else{
+        numberOfIteration=NUMBER;
+    }
+    printf("Number of iteration: %d.\n", numberOfIteration);
 
     struct timespec startTime, endTime;
 
     clock_gettime(CLOCK_REALTIME,&startTime);
     
-    task();
+    task(numberOfIteration);
 
     clock_gettime(CLOCK_REALTIME,&endTime);
 
@@ -42,12 +52,12 @@ double getDuration(struct timespec *start, struct timespec *end){
     return duration;
 }
 
-void task(){
+void task(int numberOfIteration){
 
     int j=0;
     int *perfectNumbers=malloc(SIZE*sizeof(int));
     
-    for(int i=2; i<NUMBER; i++){
+    for(int i=2; i<numberOfIteration; i++){
         
         if(isPerfectNumber(i)){
             perfectNumbers[j++]=i;
