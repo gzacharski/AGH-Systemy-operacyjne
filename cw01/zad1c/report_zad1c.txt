@@ -1,0 +1,18 @@
+
+Flag: -O0 (default)
+Duration: 19.553988090s
+
+Flag: -O
+Duration: 12.595775721s
+
+Flag: -O1
+Duration: 12.596348914s
+
+Flag: -O2
+Duration: 8.242275187s
+
+Flag: -O3
+Duration: 8.231410135s
+
+Flag: -Os
+Duration: 10.041251656s
