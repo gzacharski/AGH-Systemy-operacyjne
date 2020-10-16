@@ -1,0 +1,2 @@
+# Zadanie 2. Program korzystający z biblioteki
+Program wypisuje liczby doskonale w zakresie NUMBER. Liczba doskonala to taka liczba, ktorej suma dzielnikow, oprocz niej samej, jest rowna rozpatrywanej liczbie. Programy wykonywalny z biblioteką statyczną, współdzieloną oraz łądowaną dynamicznie.
