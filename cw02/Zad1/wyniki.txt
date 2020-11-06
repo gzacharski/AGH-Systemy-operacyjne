@@ -1,0 +1,384 @@
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	3000
+Length of record:	4
+Mode:			lib
+----------------
+Real time:	       9.910000s
+User time:	       3.840000s
+System time:	       6.060000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	3000
+Length of record:	4
+Mode:			sys
+----------------
+Real time:	       7.590000s
+User time:	       2.480000s
+System time:	       5.100000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	6000
+Length of record:	4
+Mode:			lib
+----------------
+Real time:	      38.460000s
+User time:	      15.020000s
+System time:	      23.420000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	6000
+Length of record:	4
+Mode:			sys
+----------------
+Real time:	      27.770000s
+User time:	       9.620000s
+System time:	      18.140000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	3000
+Length of record:	512
+Mode:			lib
+----------------
+Real time:	       9.850000s
+User time:	       3.740000s
+System time:	       6.100000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	3000
+Length of record:	512
+Mode:			sys
+----------------
+Real time:	       7.680000s
+User time:	       2.450000s
+System time:	       5.210000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	6000
+Length of record:	512
+Mode:			lib
+----------------
+Real time:	      38.350000s
+User time:	      14.530000s
+System time:	      23.790000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	6000
+Length of record:	512
+Mode:			sys
+----------------
+Real time:	      29.290000s
+User time:	      10.020000s
+System time:	      19.260000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	3000
+Length of record:	4096
+Mode:			lib
+----------------
+Real time:	       9.500000s
+User time:	       3.000000s
+System time:	       6.490000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	3000
+Length of record:	4096
+Mode:			sys
+----------------
+Real time:	       8.720000s
+User time:	       2.310000s
+System time:	       6.400000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	6000
+Length of record:	4096
+Mode:			lib
+----------------
+Real time:	      38.340000s
+User time:	      12.000000s
+System time:	      26.290000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	6000
+Length of record:	4096
+Mode:			sys
+----------------
+Real time:	      35.290000s
+User time:	       9.690000s
+System time:	      25.550000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	3000
+Length of record:	8192
+Mode:			lib
+----------------
+Real time:	      12.410000s
+User time:	       2.940000s
+System time:	       9.450000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	3000
+Length of record:	8192
+Mode:			sys
+----------------
+Real time:	      11.400000s
+User time:	       2.540000s
+System time:	       8.850000s
+
+
+----------------
+Command:		sort
+Name of file:		daneLib
+Quantity of record:	6000
+Length of record:	8192
+Mode:			lib
+----------------
+Real time:	      49.190000s
+User time:	      11.640000s
+System time:	      37.470000s
+
+
+----------------
+Command:		sort
+Name of file:		daneSys
+Quantity of record:	6000
+Length of record:	8192
+Mode:			sys
+----------------
+Real time:	      47.420000s
+User time:	       9.960000s
+System time:	      36.320000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	150000
+Length of record:	4
+Mode:			lib
+----------------
+Real time:	       0.010000s
+User time:	       0.000000s
+System time:	       0.000000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	150000
+Length of record:	4
+Mode:			sys
+----------------
+Real time:	       0.420000s
+User time:	       0.100000s
+System time:	       0.320000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	300000
+Length of record:	4
+Mode:			lib
+----------------
+Real time:	       0.010000s
+User time:	       0.010000s
+System time:	       0.000000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	300000
+Length of record:	4
+Mode:			sys
+----------------
+Real time:	       0.940000s
+User time:	       0.170000s
+System time:	       0.770000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	150000
+Length of record:	512
+Mode:			lib
+----------------
+Real time:	       0.130000s
+User time:	       0.020000s
+System time:	       0.090000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	150000
+Length of record:	512
+Mode:			sys
+----------------
+Real time:	       0.490000s
+User time:	       0.090000s
+System time:	       0.390000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	300000
+Length of record:	512
+Mode:			lib
+----------------
+Real time:	       0.250000s
+User time:	       0.040000s
+System time:	       0.200000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	300000
+Length of record:	512
+Mode:			sys
+----------------
+Real time:	       0.970000s
+User time:	       0.170000s
+System time:	       0.790000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	150000
+Length of record:	4096
+Mode:			lib
+----------------
+Real time:	       0.850000s
+User time:	       0.120000s
+System time:	       0.720000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	150000
+Length of record:	4096
+Mode:			sys
+----------------
+Real time:	       1.290000s
+User time:	       0.100000s
+System time:	       0.760000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	300000
+Length of record:	4096
+Mode:			lib
+----------------
+Real time:	       2.010000s
+User time:	       0.270000s
+System time:	       1.450000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	300000
+Length of record:	4096
+Mode:			sys
+----------------
+Real time:	       4.200000s
+User time:	       0.160000s
+System time:	       1.700000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	150000
+Length of record:	8192
+Mode:			lib
+----------------
+Real time:	       1.920000s
+User time:	       0.140000s
+System time:	       1.490000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	150000
+Length of record:	8192
+Mode:			sys
+----------------
+Real time:	       3.830000s
+User time:	       0.110000s
+System time:	       1.510000s
+
+
+----------------
+Command:		copy
+Name of files:		daneLib -> daneLibCopy
+Quantity of record:	300000
+Length of record:	8192
+Mode:			lib
+----------------
+Real time:	      16.780000s
+User time:	       0.610000s
+System time:	       4.410000s
+
+
+----------------
+Command:		copy
+Name of files:		daneSys -> daneSysCopy
+Quantity of record:	300000
+Length of record:	8192
+Mode:			sys
+----------------
+Real time:	      18.230000s
+User time:	       0.250000s
+System time:	       4.750000s
+
+
