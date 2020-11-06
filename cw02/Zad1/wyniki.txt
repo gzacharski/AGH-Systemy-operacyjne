@@ -1,3 +1,6 @@
+Analizując poniższe wyniki, można stwierdzić, że czas wykonywania się programu z użyciem funkcji systemowych jest krótszy w porównaniu do czasu wykonania się programu przy wykorzystaniu funkcji bibliotecznych. 
+Program wykorzystujący funkcje biblioteczne najpierw wywołują odpowiednią funkcję biblioteczną, która następnie wywołuje odpowiednią funkcję systemową co przekłada się na dłuższy czas wykonania. Funkcje biblioteczne,
+pomimo swojej iż są wolniejsze, są wygodniejsze w użyciu oraz dostarczają bardziej rozbudowaną funkcjonalność. 
 ----------------
 Command:		sort
 Name of file:		daneLib
