@@ -1,0 +1,5 @@
+ls -l | grep txt
+ping -c 2 google.com | grep rtt
+
+//prog1 arg1 arg2 | prog2 arg1 arg2 arg3 | progN arg1 argnN
+
