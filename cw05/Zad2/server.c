@@ -1,3 +1,4 @@
+#define _XOPEN_SOURCE 500
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -14,6 +15,12 @@ mqd_t serverQueueDs;
 int activeClients=0;
 mqd_t clientQueueDss[MAX_NUMBER_OF_CLIENTS];
 
+void handleSIGINT(int sigNumber)
+{
+    puts("Signal received.Finish working...");
+    exit(EXIT_SUCCESS);
+}
+
 void closeClientQueueAtExit()
 {   
     puts("Closing server message queue...");
@@ -23,7 +30,7 @@ void closeClientQueueAtExit()
     }
 
     for(int i=0; i<activeClients;i++){
-        puts("Closing client message queue...");
+        printf("Closing client message queue: %d...\n",clientQueueDss[i]);
         if(mq_close(clientQueueDss[i])==-1){
             perror("Can't close client message queue.");
             exit(EXIT_FAILURE);
@@ -45,6 +52,11 @@ int main(int argc, char *argv[])
         perror("Can't create atexit function for client\n");
         exit(EXIT_FAILURE);
     }
+
+    //handle iterruption signal
+    signal(SIGINT, handleSIGINT);
+
+    printf("PID: %d\t\n", getpid());
 
     //define server message queue configuration
     struct mq_attr serverQueueConfig;
@@ -81,7 +93,7 @@ int main(int argc, char *argv[])
         if((mq_receive(serverQueueDs,(char*) &msg,sizeof(struct message),NULL))!=-1){
 
             printf("Message %s received from PID: %d\n",convert(msg.mtype), msg.processId);
-            
+           
             if(msg.mtype==DISCOVER){
                 //receive DISCOVER command
 

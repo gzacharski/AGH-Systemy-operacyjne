@@ -1,4 +1,4 @@
-//#define _XOPEN_SOURCE 500
+#define _XOPEN_SOURCE 500
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,7 +15,7 @@ char clientQueueName[16];
 
 void handleSIGINT(int sigNumber)
 {
-    puts("Signal received.Finish working...");
+    puts("\nSignal received.Finish working...");
     exit(EXIT_SUCCESS);
 }
 
@@ -65,17 +65,14 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-    printf("PID: %d\tID: %d\n", getpid(), (int)clientQueueDs);
+    printf("PID: %d\t\n", getpid());
 
     //open server message queue
-    serverQueueDs=mq_open(SERVER_NAME,O_WRONLY );
+    serverQueueDs=mq_open(SERVER_NAME,O_RDWR );
     if(serverQueueDs==-1){
         printf("Can't open server message queue. Server is unavailable.\n");
         exit(EXIT_FAILURE);
     }
-
-    printf("Server: \tID: %d\n", (int)serverQueueDs);
-
     
     //create message to register on server
     struct message msg;
@@ -95,7 +92,11 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    printf("%s\n",convert(msg.mtype));
+    //server id/descriptor to client
+    int idOnServer;
+    sscanf(msg.mtext,"%d",&idOnServer);
+
+    printf("Message %s received from PID: %d\n",convert(msg.mtype), msg.processId);
 
     FILE* file=NULL;
 
@@ -129,7 +130,7 @@ int main(int argc, char *argv[])
 
         //prepare message
         msg.processId = getpid();
-        sprintf(msg.mtext, "%d", clientQueueDs);
+        sprintf(msg.mtext, "%d", idOnServer);
 
         //send message 
         if(mq_send(serverQueueDs,(char*) &msg,sizeof(struct message),1)==-1){
