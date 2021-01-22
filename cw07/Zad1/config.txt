@@ -1,0 +1,23 @@
+//Ilość wątków producentów P
+P=5
+
+//Ilość wątków konsumentów K
+K=2
+
+//ilość wskaźników stringów w tablicy N
+N=6
+
+//nazwa pliku
+PanTadeusz.txt
+
+//długość pobranego zapisu L
+L=20
+
+//tryb wyszukiwania TW
+TW=0
+
+//tryb wypisywania informacji TWI
+TWI=1
+
+//nk - czas pracy, jeśli 0 to do ostatniego wersu
+nk=0
