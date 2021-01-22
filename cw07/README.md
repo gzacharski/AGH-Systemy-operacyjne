@@ -1,65 +1,32 @@
-# Zadania - Zestaw 6
-## IPC - pamieć wspólna, semafory
-Przydatne funkcje
+# Zadania - Zestaw 7
+## Opis problemu
+Jednym z często spotykanych problemów synchronizacji jest "Problem producentów i konsumentów". Grupa producentów zapisuje dane w określonym miejscu, a konsumenci je pobierają (konsumują). Jedno z rozwiązań opiera się na wykorzystaniu tablicy działającej jak bufor cykliczny, co pozwala na zamortyzowanie chwilowych różnic w szybkości działania producenta i konsumenta oraz niedopuszczenie do nadprodukcji. Tę wersję problemu nazywa się problemem z ograniczonym buforem. Pojedynczy element bufora jest sekcją krytyczną, w której przebywać może tylko jeden producent albo konsument.
+  
+## Zadanie
 
-System V:
+Zaimplementuj program P+K wątkowy dla P producentów i K konsumentów, działających na tym samym buforze. Rolę bufora pełni globalna tablica N wskaźników do stringów o różnej długości. Producent produkuje i wstawia do bufora porcje różnej wielkości. Konsument pobiera, poszukując porcji określonej wielkości.
 
-<sys/shm.h> <sys/ipc.h> - shmget, shmclt, shmat, shmdt
+### Producent działa następująco:
 
-POSIX:
+* Jeżeli bufor nie jest pełny, to producent czyta kolejną linię z pliku tekstowego zadanego jako parametr programu (powinien mieć kilka tysięcy linii, np całość "Pana Tadeusza"), alokuje pamięć i umieszcza w buforze wskaźnik do tekstu.
+* Jeżeli bufor jest pełny, to producent powinien zaczekać do momentu usunięcia wartości z bufora przez konsumenta.
+* Każda kolejna wartość jest produkowana w następnym elemencie bufora (producent nie zaczyna od początku tablicy, szukając pierwszego wolnego miejsca, lecz pamięta pozycję, gdzie poprzedni producent wstawił wartość, co zapewnia równomierną produkcję dla całego bufora.
+* Po wstawieniu wartości do ostatniego elementu tablicy producent zaczyna cyklicznie wstawiać elementy  od początku tablicy.
 
-<sys/mman.h> - shm_open, shm_close, shm_unlink, mmap, munmap
+### Konsument działa następująco:
+* jeżeli bufor jest pusty, to konsument powinien zaczekać do momentu umieszczenia wartości w buforze przez producenta.
+* jeżeli bufor nie jest pusty, to konsument pobiera, usuwa wartość z bufora i sprawdza, czy długość pobranego napisu jest w zależności od wartości podanego argumentu równa, większa, bądź mniejsza podanej jako argument wartości L, jeśli tak, to wypisuje nr indeksu tablicy i ten napis.
+* praca konsumentów jest analogiczna do pracy producentów (konsument nie zaczyna od początku, szukając pierwszego wyprodukowanego elementu, ale pamięta pozycję, gdzie poprzedni konsument pobrał wartość, co zapewnia równomierną konsumpcję dla całego bufora.
+* Po pobraniu wartości ostatniego elementu tablicy konsument zaczyna cyklicznie pobierać elementy  od początku tablicy.
 
-## Problem synchronizacyjny śpiącego golibrody z kolejką
+Wątki powinny działać w pętli nieskończonej i kończyć się:
+* jeśli nk>0, po upływie nk sekund,
+* jeśli nk=0, po przeczytaniu ostatniego wersu pliku tekstowego lub po odebraniu przez proces główny sygnału CTRL-C.
 
-W ramach ćwiczenia 7 należy zaimplementować prawidłowe rozwiązanie problemu śpiącego golibrody z kolejką. Golibroda prowadzi zakład fryzjerski z jednym krzesłem w gabinecie (na którym strzyże klientów) i N krzesłami w poczekalni. Zakład działa według następującego schematu:
+Program powinien umożliwić uruchomienie trybu opisowego (każdy producent i konsument raportuje swoją pracę) oraz uproszczonego (informacje wypisują tylko konsumenci, jeśli odnajdą odpowiedni wynik).
 
-Golibroda
-* Golibroda sprawdza, czy w poczekalni oczekują klienci.
-* Jeśli w poczekalni nie ma klientów, golibroda zasypia. W przeciwnym razie golibroda zaprasza do strzyżenia klienta, który czekał najdłużej.
-* Gdy golibroda skończy strzyżenie, klient opuszcza zakład. Golibroda ponownie sprawdza poczekalnię.
+Program powinien wczytać z linii poleceń plik konfiguracyjny, w którym są ustawione parametry P, K, N, nazwa pliku, L, tryb wyszukiwania, tryb wypisywania informacji oraz nk.
 
-Klient
-* Po przyjściu do zakładu klient sprawdza co robi golibroda.
-* Jeśli golibroda śpi, klient budzi go, siada na krześle w gabinecie i jest strzyżony.
-* Jeśli golibroda strzyże innego klienta, nowy klient sprawdza, czy w poczekalni jest wolne krzesło. Jeśli tak, to klient siada w poczekalni. W przeciwnym razie klient opuszcza zakład.
-
-Program golibrody wypisuje na ekranie komunikaty o następujących zdarzeniach:
-
-* zaśnięcie golibrody,
-* obudzenie golibrody,
-* zaproszenie klienta z poczekalni do strzyżenia (w komunikacie tym podawany identyfikator strzyżonego klienta),
-* rozpoczęcie strzyżenia (z identyfikatorem strzyżonego klienta),
-* zakończenie strzyżenia (z identyfikatorem strzyżonego klienta).
-
-Każdy klient wypisuje na ekranie komunikaty o następujących zdarzeniach:
-
-* obudzenie golibrody,
-* zajęcie miejsca na krześle do strzyżenia,
-* opuszczenie zakładu po zakończeniu strzyżenia,
-* zajęcie miejsca w poczekalni,
-* opuszczenie zakładu z powodu braku wolnych miejsc w poczekalni.
-
-Każdy komunikat golibrody lub klienta powinien zawierać znacznik czasowy z dokładnością do mikrosekund (można tu wykorzystać funkcję clock_gettime z flagą CLOCK_MONOTONIC). Każdy komunikat klienta powinien ponadto zawierać jego identyfikator.
-
-Zakładamy, że golibroda oraz każdy klient to osobne procesy. Klienci są tworzeni przez jeden proces macierzysty (funkcją fork). Identyfikatorem klienta jest jego PID. Proces tworzący klientów przyjmuje dwa argumenty: liczbę klientów do stworzenia oraz liczbę strzyżeń S. Każdy klient odwiedza w pętli zakład fryzjerski. Gdy klient zostanie ostrzyżony S razy, proces klienta kończy pracę. Proces macierzysty kończy pracę po zakończeniu wszystkich procesów klientów (można wówczas uruchomić w konsoli kolejną partię klientów). Proces golibrody pracuje do momentu otrzymania sygnału SIGTERM. Liczba krzeseł w poczekalni jest podawana w argumencie wywołania golibrody. 
-
-Synchronizacja procesów musi wykluczać zakleszczenia i gwarantować sekwencję zdarzeń zgodną ze schematem działania zakładu. Niedopuszczalne jest na przykład:
-
-* budzenie golibrody, który nie śpi,
-* zasypianie golibrody gdy w poczekalni czekają klienci,
-* zajmowanie miejsca w poczekalni po obudzeniu golibrody (klient powinien od razu siąść na krześle do strzyżenia),
-* rozpoczęcie strzyżenia klienta zanim klient zajmie miejsce na krześle do strzyżenia,
-* opuszczenie zakładu (przez strzyżonego klienta) przed zakończeniem strzyżenia,itd.
-
-Niedopuszczalne jest również zasypianie procesów klientów lub golibrody funkcjami z rodziny sleep.
-
-Szeregowanie klientów do strzyżenia należy zaimplementować w postaci kolejki FIFO w pamięci wspólnej. W pamięci wspólnej można również przechowywać inne niezbędne zmienne (np. zmienną zliczającą klientów oczekujących w poczekalni, flagę wskazującą czy golibroda śpi, etc.). Odpowiednie zasoby do synchronizacji i komunikacji powinny być tworzone przez proces golibrody. Proces ten jest również odpowiedzialny za usunięcie tych zasobów z systemu (przed zakończeniem pracy).
-
-## Zadanie 1
-
-Zaimplementuj opisany powyżej problem synchronizacyjny wykorzystując semafory i pamięć wspólną z IPC Systemu V.
-
-## Zadanie 2.
-
-Zaimplementuj opisany powyżej problem synchronizacyjny wykorzystując semafory i pamięć wspólną z IPC POSIX.
+### Należy wykonać dwie wersje rozwiązania:
+1. Rozwiązanie wykorzystujące do synchronizacji muteks i zmienne warunkowe (zgodne z typem rozwiązań problemu współbieżnego stosującego monitor) (50%)
+1. Rozwiązanie wykorzystujące do synchronizacji semafory nienazwane standardu POSIX (zgodne z typem rozwiązań problemu współbieżnego stosującego semafory) (50%)
